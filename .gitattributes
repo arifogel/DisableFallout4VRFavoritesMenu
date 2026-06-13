@@ -1,0 +1,32 @@
+# ========================================================================
+# Global Line Ending Normalization
+# ========================================================================
+# Set the default behavior to automatically handle text files
+* text=auto
+
+# ========================================================================
+# Explicit Text File Declarations
+# ========================================================================
+# Force C++ and build script source files to normalize to LF on commit
+# and extract as CRLF on checkout
+*.cpp text
+*.h text
+*.hpp text
+*.cmake text
+CMakeLists.txt text
+
+# Core repository text assets
+*.md text
+*.txt text
+INSTALL text
+.gitignore text
+
+# ========================================================================
+# Explicit Binary File Declarations
+# ========================================================================
+# Protect binaries and packed archives from accidental line-ending mutation
+*.7z binary
+*.zip binary
+*.dll binary
+*.lib binary
+*.pdb binary

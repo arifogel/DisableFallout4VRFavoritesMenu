@@ -1,0 +1,68 @@
+# ========================================================================
+# CMake Build Outputs
+# ========================================================================
+# Ignores default CMake build folders from both CLI and Visual Studio
+build/
+out/
+
+# Ignore CMake cache files if generated at root
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+Testing/
+Makefile
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+
+# ========================================================================
+# Visual Studio & MSVC System Files
+# ========================================================================
+.vs/
+*.user
+*.suo
+*.sln
+*.vcxproj
+*.filters
+*.tlog
+*.log
+
+# ========================================================================
+# Compiled Binaries & Build Artifacts
+# ========================================================================
+*.exe
+*.dll
+*.lib
+*.pdb
+*.ilk
+*.exp
+*.obj
+*.iobj
+*.ipdb
+
+# ========================================================================
+# Packaging & Distribution Outputs
+# ========================================================================
+*.7z
+*.zip
+*.rar
+
+# ========================================================================
+# Operating System & Environment Specifics
+# ========================================================================
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# ========================================================================
+# JetBrains CLion (.idea) Version Control Rules
+# ========================================================================
+# Block the entire .idea folder from tracking by default
+/.idea/*
+#Re-include ONLY the necessary project configuration files
+!/.idea/cmake.xml
+!/.idea/vcs.xml
+!/.idea/misc.xml
+!/.idea/modules.xml
+!/.idea/DisableFallout4VRFavoritesMenu.iml
+!/.idea/.gitignore

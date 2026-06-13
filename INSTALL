@@ -1,0 +1,116 @@
+========================================================================
+DISABLE FALLOUT 4 VR FAVORITES MENU - INSTALLATION AND BUILD GUIDE
+========================================================================
+
+This document details how to fetch, configure, compile, and package this
+plugin.
+
+CRITICAL ARCHITECTURAL REQUIREMENT: VISUAL STUDIO (MSVC) ABI COMPLIANCE
+------------------------------------------------------------------------
+Fallout 4 VR and F4SEVR are compiled entirely using the Microsoft Visual
+Studio C++ compiler (MSVC). C++ binaries compiled with different toolchains
+(such as MinGW or GCC) use a completely incompatible Application Binary
+Interface (ABI)—they mangle names differently and layout memory structures
+differently.
+
+Injecting a MinGW-compiled DLL into an MSVC-compiled game WILL cause
+instant desktop crashes.
+
+Therefore, you MUST use the MSVC toolchain to build this project. MinGW
+and Clang-cl configurations are explicitly unsupported.
+
+------------------------------------------------------------------------
+1. PREREQUISITES
+------------------------------------------------------------------------
+
+Ensure the following tools are present in your Windows system environment:
+
+* Git for Windows       (https://git-scm.com)
+* CMake (Version 3.18+) (https://cmake.org/download/)
+
+* Microsoft Visual C++ Compiler (MSVC x64 Build Tools):
+  You do NOT need to install the heavy Visual Studio IDE. You can use the
+  lightweight "Build Tools for Visual Studio" installer from Microsoft.
+
+  During installation, check ONLY the following module workload:
+  [X] Desktop development with C++
+
+------------------------------------------------------------------------
+2. CLONING AND SETUP
+------------------------------------------------------------------------
+
+Open your terminal or command prompt and clone the project files:
+
+    git clone https://github.com/arifogel/DisableFallout4VRFavoritesMenu
+    cd DisableFallout4VRFavoritesMenu
+
+CMake will automatically download, extract, and map the remote F4SEVR
+SDK dependencies from the official servers during the generation step.
+
+------------------------------------------------------------------------
+3. COMPILING THE PLUGIN
+------------------------------------------------------------------------
+
+You can build this project either through the command line or using a
+modern IDE. Both methods are pre-configured to handle separate, isolated
+build directories for Debug and Release targets.
+
+CHOICE A: THE COMMAND LINE WAY (BULLETPROOF)
+To configure your build workspace, open your terminal in the repository root.
+You can completely omit explicit version generator strings; CMake will
+automatically scan your Windows registry and use the highest generation of the
+Microsoft Visual Studio toolchain you have locally installed.
+
+You only need to explicitly specify the 64-bit runtime target architecture:
+
+  1. Generate the workspace files:
+         cmake -B build -A x64
+
+  2. Compile your target profile:
+
+     For a Debug target (unoptimized, full diagnostic symbols):
+         cmake --build build --config Debug
+
+     For a Release target (highly optimized for VR performance):
+         cmake --build build --config Release
+
+
+CHOICE B: THE IDE WAY (CLion / Visual Studio)
+If you prefer developing inside an Integrated Development Environment:
+
+  * If using JetBrains CLion (Highly Recommended):
+    1. Select "Open" and choose the repository root folder.
+    2. CLion will automatically parse the committed `.idea` metadata. It
+       will instantly load your pre-configured MSVC x64 toolchain, pair
+       it with Ninja, and populate your split Debug/Release profiles.
+       No manual setup is required.
+
+  * If using Visual Studio 2022:
+    1. Select "Open a local folder" and choose the repository root.
+    2. Visual Studio will automatically detect CMakeLists.txt and configure
+       itself using the native MSVC x64 toolchain.
+
+------------------------------------------------------------------------
+4. CREATING THE 7Z MOD DISTRIBUTION PACKAGE
+------------------------------------------------------------------------
+
+To bundle the compiled Release binary and its accompanying PDB symbol file
+(used by VR crash loggers) into a mod-manager-compliant archive, run the
+native package target pipeline after your Release build finishes:
+
+  * Via Command Line:
+    Run the following command from the root directory:
+        cmake --build build --config Release --target PACKAGE
+
+  * Via CLion:
+    Select the pre-configured `Package` build profile from the top-right
+    dropdown menu and click the Build (Hammer) icon.
+
+Once completed, your final package will be generated at:
+
+    .\build\DisableFallout4VRFavoritesMenu-1.0.0-win64.7z
+    (Or inside .\cmake-build-release\ if compiling via CLion Ninja)
+
+This file contains the precise underlying structure (`F4SE/Plugins/`) and
+is ready to be dropped straight into Mod Organizer 2 or Vortex.
+========================================================================
