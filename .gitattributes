@@ -9,17 +9,17 @@
 # ========================================================================
 # Force C++ and build script source files to normalize to LF on commit
 # and extract as CRLF on checkout
-*.cpp text
-*.h text
-*.hpp text
-*.cmake text
-CMakeLists.txt text
+*.cpp text eol=lf
+*.h text eol=lf
+*.hpp text eol=lf
+*.cmake text eol=lf
+CMakeLists.txt text eol=lf
 
 # Core repository text assets
-*.md text
-*.txt text
-INSTALL text
-.gitignore text
+*.md text eol=lf
+*.txt text eol=lf
+INSTALL text eol=lf
+.gitignore text eol=lf
 
 # ========================================================================
 # Explicit Binary File Declarations

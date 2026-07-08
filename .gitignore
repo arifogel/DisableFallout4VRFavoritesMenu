@@ -66,3 +66,6 @@ desktop.ini
 !/.idea/modules.xml
 !/.idea/DisableFallout4VRFavoritesMenu.iml
 !/.idea/.gitignore
+
+
+node_modules/
